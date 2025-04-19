@@ -1,0 +1,5 @@
+{
+    "prompts":[
+        {"error_message_interpretation":"You are a Kubernetes expert. Describe the following error and provide solutions for how to resolve given the following deployment yaml. For any solution, deliminate each step with the expression '##STEP'. Error=ERROR Deployment=DEPLOYMENT"}
+    ]
+}

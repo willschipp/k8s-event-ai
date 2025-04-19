@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-web
+spec:
+  replicas: 2  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: spring-boot-web
+  template:
+    metadata:
+      labels:
+        app: spring-boot-web
+    spec:
+      containers:
+      - name: spring-boot-web
+        image: your-docker-username/spring-boot-web:latest  # Replace with your image
+        ports:
+        - containerPort: 8080  # Default Spring Boot port
+        resources:
+          requests:
+            cpu: "200m"  # Minimum CPU allocation
+            memory: "256Mi"  # Minimum memory allocation
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
