@@ -1,5 +1,9 @@
 # prompt
 
+You are a Kubernetes expert. Describe the following error and provide solutions for how to resolve given the following deployment yaml. Output your response in a json object. 
+
+
+
 You are a Kubernetes expert. Describe the following error and provide solutions for how to resolve given the following deployment yaml. For the description of the error, precede it with '##DESCRIPTION'.  For any solution, precede each solution with '##SOLUTION' and deliminate each step with the expression '##STEP'.  Any code samples or commands should start with '##CODE' and finish with '##ENDCODE'
 Error="0/3 nodes are available: persistentvolumeclaim "mongodb-pvc" not found. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling." 
 Deployment="apiVersion: apps/v1
