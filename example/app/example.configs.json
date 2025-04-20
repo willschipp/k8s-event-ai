@@ -1,0 +1,36 @@
+{
+    "configs": [
+        {
+            "apiVersion": "v1",
+            "clusters": [
+                {
+                    "cluster": {
+                        "certificate-authority-data": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lDQm5Vd0RRWUpLb1pJaHZjTkFRRUxCUUF3TXpFVk1CTUdBMVVFQ2hNTVJHbG4KYVhSaGJFOWpaV0Z1TVJvd0dBWURWUVFERXhGck9ITmhZWE1nUTJ4MWMzUmxjaUJEUVRBZUZ3MHlOVEEwTVRreApPVE0zTkRkYUZ3MDBOVEEwTVRreE9UTTNORGRhTURNeEZUQVRCZ05WQkFvVERFUnBaMmwwWVd4UFkyVmhiakVhCk1CZ0dBMVVFQXhNUmF6aHpZV0Z6SUVOc2RYTjBaWElnUTBFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFERE1VVzZSRnJJelN5YVJDZVgyeUhjSENMU0hnWmZXT215cmlobnVvTERuc0cwRWJWawpXNkxydHhkTDRyRytRSTZMMFR5U28rdWN1a2d3b1ZLdjZ0c1JESTdodzZkVlk0Q1JFRU1GZ0NtT0hIVG9INnRhCjNyUDR3MTg2V3hYMlNSZGNnVlE1QzhUdGdJOXJYa2xaeUFsaWdHSDdIVU1ma09qSHhoOXRaa2VGa1hWQ3M0ekkKK0dVRDlORWppbjBOR1Z5NjEzOGNpMEJjWHdtb0dUUVczdXVMdmhrT3RTbGFGUGVCeitIMEZUZnJYcTJvdDZzLwptWG9LQnQvYXpIUGV4REhUeXg1a2JvSDdkMDZvSkZOSkYwdmowVGorNnVDMHcxa1M2WTBRaVB5cGFDN0c5YlJCCllGVno3R3pSNFhSU2U5aWxRekt1WU9ZVUFRZWg0Y1hac2hWbkFnTUJBQUdqUlRCRE1BNEdBMVVkRHdFQi93UUUKQXdJQmhqQVNCZ05WSFJNQkFmOEVDREFHQVFIL0FnRUFNQjBHQTFVZERnUVdCQlNiaW5OVmQ2dVdId3NVK0V5dgo5OVdqZUk4UE1EQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFhd1MrZGRpZ2tjbGdNVGxzc3Bac1FvbVhSWFFSCjNaMUxuLzc5elR3MlY2c1E3RnhrT212ckovRmhXQThHY1lnRWZWTTNoR29CWk0zL3Z4c09IRHMrbHRlNGd2a3AKZUoyVXR1MTd6Z0Qxc0FaWUFqL1NtRkk3SVlyQ2VlOGVlYUdEYW1EQlJaVTd3T0FrZThrZUFLd2ZtV1ZHNTFFOQpJTjJlMkoxZ3dsY2Fwc2pUTGcxdjhCV3Z3V29qa2dOY3YrNlhsb1cwQ29mT05XK3ZhdkZMd1B1TERzdFdGd2h1CnJUcnU3dTExTUV5dkQvcFNmRjJ5L05JeWRBbUgzOFA2TDBOa2RIMDVIU09qbTRjWUVYajlUQmtDb0hST0ZtY28Kc084bnFRODRHZ21Nc1JhR1pEZ04vc3B4WXcxcEpLeUg4MjhYRlRsQ3FuRnU4Q3V2NXJuNmRpQldkZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+                        "server": "https://047ba0f5-ea0e-4d0e-a2fb-8d2a10c4482f.k8s.ondigitalocean.com"
+                    },
+                    "name": "do-sfo3-k8s-1-32-2-do-0-sfo3-1745091436479"
+                }
+            ],
+            "contexts": [
+                {
+                    "context": {
+                        "cluster": "do-sfo3-k8s-1-32-2-do-0-sfo3-1745091436479",
+                        "user": "do-sfo3-k8s-1-32-2-do-0-sfo3-1745091436479-admin"
+                    },
+                    "name": "do-sfo3-k8s-1-32-2-do-0-sfo3-1745091436479"
+                }
+            ],
+            "current-context": "do-sfo3-k8s-1-32-2-do-0-sfo3-1745091436479",
+            "kind": "Config",
+            "preferences": {},
+            "users": [
+                {
+                    "name": "do-sfo3-k8s-1-32-2-do-0-sfo3-1745091436479-admin",
+                    "user": {
+                        "token": "dop_v1_3325435554157dfb2818e3fd1407051148b323bfdd281610cf55006a9615131b"
+                    }
+                }
+            ]
+        }
+    ]
+}
