@@ -10,6 +10,7 @@ import Home from './components/Home';
 import Menu from './components/Menu';
 import Issues from './components/Issues';
 import Configs from './components/Configs';
+import NewConfig from './components/NewConfig';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                   <Route exact path="/" element={<Home/>}/>
                   <Route path="/issues" element={<Issues/>}/>
                   <Route path="/configs" element={<Configs/>}/>
+                  <Route path="/new_config" element={<NewConfig/>}/>
                 </Routes>          
               
             </Content>
