@@ -1,2 +1,4 @@
 **/__pycache__/
 kubeconfig
+dummy.kubeconfig
+example.configs.json
