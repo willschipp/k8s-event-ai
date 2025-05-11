@@ -8,10 +8,12 @@ function Menu() {
 
     const handleNavigation = (selected) => {
         var selection = [...selected][0];
-        if (selection === 'issues') {
-            navigate('/issues');
+        if (selection === 'events') {
+            navigate('/events');
         } else if (selection === 'configs') {
             navigate('/configs');
+        } else if (selection === 'clusters') {
+            navigate('/clusters');
         } else {
             navigate('/');
         }
@@ -27,7 +29,8 @@ function Menu() {
                 selectionMode="single"
                 onSelectionChange={handleNavigation}>
                 <Item key="home">Home</Item>
-                <Item key="issues">Current Issues</Item>
+                <Item key="clusters">Clusters</Item>
+                {/* <Item key="events">Current Events</Item> */}
                 <Item key="configs">Cluster Configuration</Item>
             </ListBox>
         </Content>

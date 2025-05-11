@@ -4,18 +4,18 @@ import yaml
 from k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs
 from k8s_processor import get_error_messages
 
-def load_kubeconfig(config_location="../example/kubeconfig"):
+def load_kubeconfig(config_location="../dummy.kubeconfig"):
     with open(config_location) as file:
         return yaml.safe_load(file)
 
-def orchestrator():
+def orchestrator(config_location:str):
     # load up a kubeconfig into a dict
-    kube_config_dict = load_kubeconfig()
+    kube_config_dict = load_kubeconfig(config_location)
     # now use it to get pods
     pods = get_unhealthy_pods("default",kube_config_dict)
 
     if len(pods) > 0:
-        print("we have unhealth pods!")
+        print("we have unhealthy pods!")
         # build a store
         pods_in_error = []
         # loop
@@ -52,10 +52,11 @@ def orchestrator():
         print(f"pods in error count {len(pods_in_error)}")
         print("----------------")
         # get the error messages
-        # messages = get_error_messages(pods_in_error[0])
+        messages = get_error_messages(pods_in_error[0])
         # print(f"message {messages}")
-        print(f"{pods_in_error[0]['deployment']}")
+        # print(f"{pods_in_error[0]['deployment']}")
+        print(f"{messages}")
 
 
 if __name__ == '__main__':
-    orchestrator()
+    orchestrator("./dummy.kubeconfig")

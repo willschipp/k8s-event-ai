@@ -8,9 +8,11 @@ import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import Home from './components/Home';
 import Menu from './components/Menu';
-import Issues from './components/Issues';
+import Events from './components/Events';
 import Configs from './components/Configs';
 import NewConfig from './components/NewConfig';
+import Clusters from './components/Clusters';
+import Event from './components/Event';
 
 
 function App() {
@@ -35,7 +37,9 @@ function App() {
 
                 <Routes>
                   <Route exact path="/" element={<Home/>}/>
-                  <Route path="/issues" element={<Issues/>}/>
+                  <Route path="/events" element={<Events/>}/>
+                  <Route path="/event" element={<Event/>}/>
+                  <Route path="/clusters" element={<Clusters/>}/>
                   <Route path="/configs" element={<Configs/>}/>
                   <Route path="/new_config" element={<NewConfig/>}/>
                 </Routes>          
