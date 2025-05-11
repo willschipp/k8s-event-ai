@@ -1,10 +1,11 @@
 import os
 from flask import Flask, send_from_directory
-from server.handler.configs import cfg as config_blueprint
+# from app.server.handler.clusters import clusters as clusters_blueprint
+from server.handler.clusters import clusters as clusters_blueprint
 
 # flask setup
 app = Flask(__name__, static_folder="frontend/dist")
-app.register_blueprint(config_blueprint)
+app.register_blueprint(clusters_blueprint)
 
 @app.route("/",defaults={"path":""})
 @app.route("/<path:path>")

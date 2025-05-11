@@ -10,8 +10,8 @@ function Menu() {
         var selection = [...selected][0];
         if (selection === 'events') {
             navigate('/events');
-        } else if (selection === 'configs') {
-            navigate('/configs');
+        } else if (selection === 'new_config') {
+            navigate('/new_config');
         } else if (selection === 'clusters') {
             navigate('/clusters');
         } else {
@@ -31,7 +31,7 @@ function Menu() {
                 <Item key="home">Home</Item>
                 <Item key="clusters">Clusters</Item>
                 {/* <Item key="events">Current Events</Item> */}
-                <Item key="configs">Cluster Configuration</Item>
+                <Item key="new_config">New Cluster</Item>
             </ListBox>
         </Content>
     )

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Content, TableView, Column, Row, TableHeader, Cell, TableBody, Button, Link, Well } from '@adobe/react-spectrum';
+import { Content, TableView, Column, Row, TableHeader, Cell, TableBody, Button, Link, View } from '@adobe/react-spectrum';
 
-import Browse from '@spectrum-icons/workflow/Browse';
+import Refresh from '@spectrum-icons/workflow/Refresh';
 
 function Events() {
-
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -31,8 +30,30 @@ function Events() {
         }
     }
 
+    const triggerRefresh = async () => {
+        //use the clusterId to invoke a refresh
+        try {
+            const response = await fetch('/api/clusters/' + clusterId,{
+                method:'PUT',
+                headers: {
+                    'Content-Type':'application/json'
+                }                
+            });
+            if (response.status !== 204) {
+                console.log(response)
+                throw new Error('http error ',response);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     const handleView = (e) => {
         navigate('/event', { state: { eventId: e, clusterId: clusterId }})
+    }
+
+    const handleRefresh = (e) => {
+        triggerRefresh();
     }
 
     useEffect(() => {
@@ -40,12 +61,17 @@ function Events() {
     },[])
 
     return (
-        <Content>                        
+        <Content>
+            <View padding="10px">
+                <Button onPress={handleRefresh}>
+                    <Refresh/>                   
+                </Button>
+            </View>  
             <TableView width="calc(100% - size-1000)">
                 <TableHeader>
                     <Column>Event Id</Column>
-                    <Column>Deployment</Column>
-                    <Column>Description</Column>
+                    <Column>Namespace</Column>
+                    <Column>Pod Name</Column>
                 </TableHeader>
                 <TableBody>
                     {data.length > 0 ? 
@@ -55,13 +81,14 @@ function Events() {
                                     {item.eventId}
                                 </Cell>
                                 <Cell>
-                                    <Link onPress={() => handleView(item.eventId)}>
-                                        {item.deployment}
-                                    </Link>
+                                    {item.namespace}
                                 </Cell>
                                 <Cell>
-                                    {item.description}
+                                    <Link onPress={() => handleView(item.eventId)}>
+                                        {item.name}
+                                    </Link>
                                 </Cell>
+
                             </Row>
                         ))) : (
                             <Row>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { Content, TableView, Column, Row, TableHeader, Cell, TableBody, Button, Link, View, Well } from '@adobe/react-spectrum';
+
+import AddCircle from '@spectrum-icons/workflow/AddCircle';
 
 function Clusters() {
 
@@ -31,33 +32,46 @@ function Clusters() {
         navigate('/events', { state: { clusterId: e }});
     }
 
-    return (<Content>       
-            <TableView width="calc(100% - size-1000)">
-                <TableHeader>
-                    <Column>Cluster Id</Column>
-                    <Column>Name</Column>
-                </TableHeader>
-                <TableBody>
-                    {data.length > 0 ? 
-                        (data.map((item,index) => (
-                            <Row key={index}>
-                                <Cell>
-                                    {item.clusterId}
-                                </Cell>
-                                <Cell>
-                                    <Link onPress={() => handleView(item.clusterId)}>
-                                        {item.name}
-                                    </Link>
-                                </Cell>
-                            </Row>
-                        ))) : (
-                            <Row>
-                                <Cell colSpan={2}>No Clusters</Cell>
-                            </Row>
-                        )
-                    }
-                </TableBody>
-            </TableView>            
+    const handleNew = () => {
+        navigate('/new_config')
+    }
+
+    return (<Content>    
+            <View padding="10px">
+                <Button onPress={handleNew}>
+                    <AddCircle/>
+                    &nbsp;
+                    New Cluster
+                </Button>
+            </View>
+            <View>
+                <TableView width="calc(100% - size-1000)">
+                    <TableHeader>
+                        <Column>Cluster Id</Column>
+                        <Column>Name</Column>
+                    </TableHeader>
+                    <TableBody>
+                        {data.length > 0 ? 
+                            (data.map((item,index) => (
+                                <Row key={index}>
+                                    <Cell>
+                                        {item.clusterId}
+                                    </Cell>
+                                    <Cell>
+                                        <Link onPress={() => handleView(item.clusterId)}>
+                                            {item.name}
+                                        </Link>
+                                    </Cell>
+                                </Row>
+                            ))) : (
+                                <Row>
+                                    <Cell colSpan={2}>No Clusters</Cell>
+                                </Row>
+                            )
+                        }
+                    </TableBody>
+                </TableView> 
+            </View>              
         </Content>
     )
 }
