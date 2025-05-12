@@ -1,10 +1,10 @@
 import json
 import yaml
 
-# from server.k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
-from k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
+from server.k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
+# from k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
 
-from llm_parser import call_gemini, get_json_from_gemini_response
+from server.llm_parser import call_gemini, get_json_from_gemini_response
 
 prompt_template = '''
     You are a Kubernetes expert. Describe the following error and provide solutions for how to 
@@ -110,7 +110,9 @@ def get_solutions(events):
     # get the prompt template      
     prompt = prompt_template.replace('ERROR_MESSAGES',message).replace('DEPLOYMENT',deployment)  
     # send
+    print("calling LLM...")
     response = call_gemini(prompt)
+    print("...finished")
     # response is a json object
     response_string = response['candidates'][0]['content']['parts'][0]['text'] 
     # convert it

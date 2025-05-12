@@ -47,12 +47,11 @@ def get_json_from_gemini_response(response:str):
         print("not a correct string - no starter")
         return None # not a correct string
     start_index += len(start_marker)
-    end_index = response.find(end_marker,start_index)
+    # end_index = response.find(end_marker,start_index)
+    end_index = response.rfind(end_marker)
     if end_index == -1:
         print("not a correct string - no finish")
         return None # not a correct string
     stripped = response[start_index:end_index].strip()
     # convert to a dict
     return json.loads(stripped)
-
-

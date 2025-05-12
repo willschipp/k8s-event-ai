@@ -4,7 +4,7 @@ import yaml
 import threading
 
 from server.model.cluster_config import get_configs, save_config, get_config_by_id
-from server.model.cluster_events import get_events, check_events
+from server.model.cluster_events import get_events, check_events, get_event
 # from server.orchestrator import load_cluster_in_background, load_cluster
 
 clusters = Blueprint('clusters',__name__)
@@ -61,6 +61,26 @@ def update_cluster(clusterId):
     check_events(clusterId)
     return "",204
 
+
+@clusters.route('/api/clusters/<clusterId>/events/<eventId>')
+def get_processed_events(clusterId,eventId):
+    # get the event by the id
+    event = get_event(clusterId,eventId)
+    if event != None:
+        print(f"keys {list(event.keys())}")
+        # pull the events as a single object
+        # structure target is
+        # { event: {}, solution: {} }
+        payload = {
+            "event":{
+                "eventId":eventId,
+                "deployment":event['deployment'],
+                "description":"TODO"
+            },
+            "solution":event['solution']
+        }
+        return jsonify(payload),200
+    return None
 
 def load_cluster_in_background(clusterId):
     print("starting background")

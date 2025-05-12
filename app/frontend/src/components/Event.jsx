@@ -54,12 +54,12 @@ function Event() {
         <Content>
             <View>        
                 <Header>Event ID:&nbsp;{data.event.eventId}</Header>        
-                <Well>
+                {/* <Well>
                     <h3>Deployment</h3>
                     <p>{data.event.deployment}</p>
                     <h3>Event Description</h3>
                     <p>{data.event.description}</p>
-                </Well>
+                </Well> */}
                 <Well>
                     <h3>Explanation</h3>
                     <p>{data.solution.description}</p>

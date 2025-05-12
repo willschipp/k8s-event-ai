@@ -16,7 +16,7 @@ def get_config_by_id(id:str):
         return None
     for config in configs:
         print(f"{config['clusterId']} | id {id}")
-        if config['clusterId'] == id:
+        if config['clusterId'] == int(id):
             return config
     return None
 
