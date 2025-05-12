@@ -1,0 +1,46 @@
+{
+    "errorDescription": "The Kubernetes deployment for MongoDB is failing because it cannot find the PersistentVolumeClaim (PVC) named \"mongodb-pvc\".  This PVC is crucial as it defines the storage that the MongoDB container needs to persist its data.",
+    "possibleCauses": [
+      "The PVC \"mongodb-pvc\" has not been created.",
+      "The PVC \"mongodb-pvc\" is not in a bound state (it might be pending or failed).",
+      "The name \"mongodb-pvc\" in the deployment YAML is incorrect (a typo or mismatch).",
+      "There are insufficient resources (storage capacity) in your Kubernetes cluster to satisfy the PVC's request.",
+      "StorageClass issues: If the PVC is bound to a StorageClass, there might be problems with that StorageClass."
+    ],
+    "solutions": [
+      {
+        "step": "1. Verify PVC Existence and Status",
+        "command": "kubectl describe pvc mongodb-pvc -n default",
+        "description": "This command shows the details of the PVC.  Check its status.  If it doesn't exist, proceed to step 2. If it's pending, investigate why (see possible causes above). If it's failed, examine the reason for the failure."
+      },
+      {
+        "step": "2. Create the PVC (if it doesn't exist)",
+        "exampleYaml": "apiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: mongodb-pvc\n  namespace: default\nspec:\n  accessModes:\n    - ReadWriteOnce\n  resources:\n    requests:\n      storage: 10Gi\n  storageClassName: <your-storage-class-name>",
+        "description": "Replace `<your-storage-class-name>` with the name of your storage class. This YAML defines a PVC requesting 10GiB of storage. Adjust the storage request as needed. Apply this YAML using `kubectl apply -f <filename>.yaml`."
+      },
+      {
+        "step": "3. Check Storage Class",
+        "command": "kubectl get storageclass",
+        "description": "Ensure you have a StorageClass provisioned and that it's functioning correctly.  If you don't have one, you'll need to create one, this often involves configuring a cloud provider or other storage solution."
+      },
+      {
+        "step": "4. Check Cluster Resources",
+        "command": "kubectl get nodes -o wide",
+        "description": "Examine the available resources (CPU, memory, disk) on your nodes. If storage is extremely limited, it could prevent PVC creation."
+      },
+      {
+        "step": "5. Verify Names and Namespaces",
+        "description": "Double-check that 'mongodb-pvc' in your Deployment YAML exactly matches the name of your PersistentVolumeClaim and that the `namespace` is correctly set to 'default' in both the PVC and the Deployment."
+      },
+      {
+        "step": "6. Delete and Recreate (Last Resort)",
+        "commands": [
+          "kubectl delete pvc mongodb-pvc -n default",
+          "kubectl delete deployment mongodb -n default",
+          "kubectl apply -f <pvc-yaml-file>",
+          "kubectl apply -f <deployment-yaml-file>"
+        ],
+        "description": "If all else fails, delete the PVC and the deployment, then re-apply them. This can resolve inconsistencies."
+      }
+    ]
+  }  

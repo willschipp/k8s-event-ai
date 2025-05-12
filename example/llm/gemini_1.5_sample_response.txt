@@ -1,0 +1,86 @@
+##DESCRIPTION
+
+The error message "0/3 nodes are available: persistentvolumeclaim "mongodb-pvc" not found" indicates that the Kubernetes scheduler cannot find a PersistentVolumeClaim (PVC) named mongodb-pvc. This PVC is referenced in your deployment's pod specifications as the storage for the MongoDB container. Without this PVC, the pod cannot be scheduled and the deployment fails. The "preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling" part suggests that even if there were nodes available, Kubernetes preemption (taking resources from less-critical pods to schedule this one) is not configured or wouldn't help in this specific situation because the core problem is the missing PVC.
+
+##SOLUTION 1: Create the PersistentVolumeClaim
+
+This is the most likely solution. You need to create a PVC that provides the storage your MongoDB deployment needs. This PVC will be bound to an existing PersistentVolume (PV), or Kubernetes will automatically provision one if you specify a storage class.
+
+##STEP 1: Determine Storage Requirements
+
+Decide how much storage your MongoDB deployment requires. Consider factors like data size, anticipated growth, and performance requirements.
+
+##STEP 2: Create a PersistentVolumeClaim YAML file
+
+##CODE
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: mongodb-pvc
+spec:
+accessModes:
+- ReadWriteOnce # Adjust if needed for different access modes
+resources:
+requests:
+storage: 10Gi # Adjust storage size as needed
+storageClassName: <storage-class-name> # Replace with your storage class name. If you don't have a storage class, omit this line and let Kubernetes automatically provision.
+##ENDCODE
+
+Replace <storage-class-name> with the name of your storage class if you are using one. If you omit the storageClassName, Kubernetes will attempt to provision a PV based on its default storage class. If no default is found, it will fail. Check available storage classes with:
+
+##CODE
+kubectl get storageclass
+##ENDCODE
+
+##STEP 3: Apply the YAML file
+
+##CODE
+kubectl apply -f mongodb-pvc.yaml
+##ENDCODE
+
+##STEP 4: Verify PVC creation
+
+##CODE
+kubectl get pvc mongodb-pvc
+##ENDCODE
+
+You should see the PVC listed with a status of "Bound" after some time. If the status is "Pending," investigate why it's not binding to a PV. This might involve checking your storage provisioning mechanism (e.g., cloud provider storage) or your storage class configuration.
+
+##SOLUTION 2: Check Existing PersistentVolumes
+
+It's possible a PV already exists but is not being used. Check if any suitable PVs are available and unbound.
+
+##STEP 1: List PersistentVolumes
+
+##CODE
+kubectl get pv
+##ENDCODE
+
+##STEP 2: Check PV status and size
+
+Examine the STATUS and CAPACITY columns to identify a PV with enough storage capacity that matches the access modes required by the PVC.
+
+##STEP 3: (If a suitable PV exists) Create a PVC that refers to this PV. Make note of the PV's name.
+
+##SOLUTION 3: Check for Name Errors
+
+Carefully check the spelling of mongodb-pvc in both the deployment YAML and the PVC YAML. Even a minor typo will cause the error.
+
+##STEP 1: Verify Consistency
+
+Ensure that the claimName in the Deployment YAML and the name in the PVC YAML are exactly identical.
+
+##SOLUTION 4: Check for other issues
+
+Other issues that may cause the deployment to fail:
+
+Namespace: Ensure that both the deployment and the PVC are in the same namespace (likely default in this case).
+Secret: Verify that the secret mongodb-secrets exists and has the required keys (username, password).
+Image: Ensure the mongo:latest image is publicly accessible and your Kubernetes cluster can pull it.
+If the PVC is created and bound correctly and the deployment still fails, consider restarting the deployment using:
+
+##CODE
+kubectl rollout restart deployment mongodb
+##ENDCODE
+
+If none of these solutions work, provide the output of kubectl describe pv (if you have any PVs), kubectl describe pvc mongodb-pvc, kubectl describe deployment mongodb, and the output of kubectl get nodes to aid in further troubleshooting.

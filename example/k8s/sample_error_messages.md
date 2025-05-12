@@ -1,0 +1,1 @@
+message ['0/3 nodes are available: persistentvolumeclaim "mongodb-pvc" not found. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.', 'Error: secret "mongodb-secrets" not found']

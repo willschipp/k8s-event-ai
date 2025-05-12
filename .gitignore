@@ -1,0 +1,5 @@
+**/__pycache__/
+kubeconfig
+dummy.kubeconfig
+exmaple.configs.json
+kubectl_do
