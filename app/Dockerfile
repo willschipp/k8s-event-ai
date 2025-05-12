@@ -17,7 +17,7 @@ WORKDIR /app
 # create directory for UX
 RUN mkdir /app/frontend
 
-COPY --from=build /app/build /app/frontend/build/.
+COPY --from=build /app/dist /app/frontend/dist/.
 
 # copy python requirements
 COPY requirements.txt .
