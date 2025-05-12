@@ -5,7 +5,6 @@ import threading
 
 from server.model.cluster_config import get_configs, save_config, get_config_by_id
 from server.model.cluster_events import get_events, check_events, get_event
-# from server.orchestrator import load_cluster_in_background, load_cluster
 
 clusters = Blueprint('clusters',__name__)
 

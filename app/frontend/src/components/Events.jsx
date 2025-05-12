@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Content, TableView, Column, Row, TableHeader, Cell, TableBody, Button, Link, View } from '@adobe/react-spectrum';
+import { Content, TableView, Column, Row, TableHeader, Cell, TableBody, Button, Link, View, ToastQueue } from '@adobe/react-spectrum';
 
 import Refresh from '@spectrum-icons/workflow/Refresh';
+import Replay from '@spectrum-icons/workflow/Replay';
 
 function Events() {
 
@@ -52,7 +53,12 @@ function Events() {
         navigate('/event', { state: { eventId: e, clusterId: clusterId }})
     }
 
-    const handleRefresh = (e) => {
+    const handleRefresh = (e) => {        
+        getEvents();
+    }
+
+    const handleReplay = (e) => {
+        ToastQueue.positive('Started Event Refresh');
         triggerRefresh();
     }
 
@@ -63,9 +69,17 @@ function Events() {
     return (
         <Content>
             <View padding="10px">
-                <Button onPress={handleRefresh}>
-                    <Refresh/>                   
+                <Button variant='secondary' onPress={handleReplay}>
+                    <Replay/>       
+                    &nbsp;
+                    Check for Events            
                 </Button>
+                &nbsp;&nbsp;
+                <Button variant='secondary' onPress={handleRefresh}>
+                    <Refresh/>                  
+                    &nbsp;
+                    Refresh Page
+                </Button>                
             </View>  
             <TableView width="calc(100% - size-1000)">
                 <TableHeader>

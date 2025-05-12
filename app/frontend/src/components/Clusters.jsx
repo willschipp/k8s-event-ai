@@ -49,6 +49,7 @@ function Clusters() {
                     <TableHeader>
                         <Column>Cluster Id</Column>
                         <Column>Name</Column>
+                        <Column>Status</Column>
                     </TableHeader>
                     <TableBody>
                         {data.length > 0 ? 
@@ -62,10 +63,13 @@ function Clusters() {
                                             {item.name}
                                         </Link>
                                     </Cell>
+                                    <Cell>
+                                        {item.status}
+                                    </Cell>
                                 </Row>
                             ))) : (
                                 <Row>
-                                    <Cell colSpan={2}>No Clusters</Cell>
+                                    <Cell colSpan={3}>No Clusters</Cell>
                                 </Row>
                             )
                         }

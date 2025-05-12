@@ -1,6 +1,5 @@
 import os
 from flask import Flask, send_from_directory
-# from app.server.handler.clusters import clusters as clusters_blueprint
 from server.handler.clusters import clusters as clusters_blueprint
 
 # flask setup

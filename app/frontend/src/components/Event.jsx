@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from "react-markdown";
 
-import {Content, View, TableView, Column, Row, TableHeader, Cell, TableBody, Header, Well } from '@adobe/react-spectrum';
+import {Content, View, TableView, Column, Row, TableHeader, Cell, TableBody, Header, Well, CheckBox } from '@adobe/react-spectrum';
 
 function Event() {
 

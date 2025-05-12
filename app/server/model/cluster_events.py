@@ -1,7 +1,19 @@
-from server.model.cluster_config import get_config_by_id
-from server.orchestrator import load_cluster, get_solutions
+from server.model.cluster_config import get_config_by_id, update_cluster_status, get_configs
+from server.service.orchestrator import load_cluster, get_solutions
 
 event_register = []
+
+def check_clusters():
+    # get all the clusters
+    # loop
+    # pass the cluster id's to check_events
+    configs = get_configs()
+    for config in configs:
+        clusterId = config['cluster_id']
+        #update the status
+        update_cluster_status(clusterId,"loading") # looking for data
+        check_events(clusterId)
+
 
 #def process an event into a register
 def check_events(clusterId:str):
@@ -28,6 +40,9 @@ def check_events(clusterId:str):
         event['solution'] = solution        
         # save
         event_register.append(event)
+        # update the state of the config
+        update_cluster_status(clusterId,"events")
+        # return
         return
     else:
         # clean up the register
@@ -35,6 +50,8 @@ def check_events(clusterId:str):
         while i < len(event_register):
             if event_register[i]['clusterId'] == clusterId:
                 event_register.pop(i)
+        # update the status
+        update_cluster_status(clusterId,"enrolled")
         return
     # have clean register
 

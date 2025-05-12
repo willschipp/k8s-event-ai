@@ -48,8 +48,19 @@ const mocks: MockHandler[] = [
                 "clusters":[
                     {
                         "clusterId":1,
-                        "name":"a name goes here"
-                    }
+                        "name":"Cluster One",
+                        "status":"enrolled"
+                    },
+                    {
+                        "clusterId":2,
+                        "name":"Cluster Two",
+                        "status":"loading"
+                    },
+                    {
+                        "clusterId":3,
+                        "name":"Cluster Three",
+                        "status":"events"
+                    }                                        
                 ]
             }));
         }

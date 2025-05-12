@@ -1,15 +1,14 @@
 import json
 import yaml
 
-from server.k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
+from server.service.k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
 # from k8s_agent import get_unhealthy_pods, get_pod_events, get_deployment_name, get_deployment, get_logs, get_namespaces
 
-from server.llm_parser import call_gemini, get_json_from_gemini_response
+from server.service.llm_parser import call_gemini, get_json_from_gemini_response
 
 prompt_template = '''
-    You are a Kubernetes expert. Describe the following error and provide solutions for how to 
-    resolve given the following deployment yaml. For any solution, deliminate each step with 
-    the expression. Reply in using the JSON template. 
+    You are a Kubernetes expert. Describe the following error and provide solutions for how to resolve given the following 
+    deployment yaml. For any solution, use names and references from the provided data. Reply in using the JSON template. 
     Error=ERROR_MESSAGES
     Deployment=DEPLOYMENT
     JSON_Template={
@@ -20,18 +19,13 @@ prompt_template = '''
                 "steps": [
                     {
                         "step": 1,
-                        "process": "process"
+                        "process": ""
                     }
                 ]
             }
         ]
     }
 '''
-
-def load_kubeconfig(config_location):
-    print("called load config")
-    with open(config_location) as file:
-        return yaml.safe_load(file)
 
 def load_cluster(kube_config_dict:dict):
     print(f"getting namespaces")
@@ -119,13 +113,3 @@ def get_solutions(events):
     response_json = get_json_from_gemini_response(response_string)
     # return
     return response_json
-    
-
-
-if __name__ == '__main__':
-    # reconsitute events
-    events = []
-    with open('./sample_events.json','r') as f:
-        events = json.load(f)
-    # call
-    get_solutions(events)

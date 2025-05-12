@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Grid, View , defaultTheme, Provider, Content } from '@adobe/react-spectrum';
+import { Grid, View , defaultTheme, Provider, Content,ToastContainer } from '@adobe/react-spectrum';
 
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
@@ -31,9 +31,8 @@ function App() {
           <View gridArea="sidebar">
             <Menu/>
           </View>
-          <View gridArea="content">   
+          <View gridArea="content" overflow="scroll">   
             <Content>      
-
                 <Routes>
                   <Route exact path="/" element={<Home/>}/>
                   <Route path="/events" element={<Events/>}/>
@@ -41,16 +40,17 @@ function App() {
                   <Route path="/clusters" element={<Clusters/>}/>
                   <Route path="/new_config" element={<NewCluster/>}/>
                 </Routes>          
-              
             </Content>
           </View>
           <View gridArea="footer">
             <AppFooter/>
           </View>
         </Grid>
-      </Router>    
+      </Router>
+      <ToastContainer placement='top'/>    
     </Provider>
   )
 }
+
 
 export default App

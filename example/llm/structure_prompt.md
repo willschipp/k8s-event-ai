@@ -209,7 +209,7 @@ status:
 ### Prompt experiment
 
 >>>
-You are a Kubernetes expert. Describe the following error and provide solutions for how to resolve given the following deployment yaml. For any solution, deliminate each step with the expression. Reply in using the JSON template. 
+You are a Kubernetes expert. Describe the following error and provide solutions for how to resolve given the following deployment yaml. For any solution, use names and references from the provided data. Reply in using the JSON template. 
 Error='0/3 nodes are available: persistentvolumeclaim "mongodb-pvc" not found. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.', 'Error: secret "mongodb-secrets" not found'
 
 Deployment=apiVersion: apps/v1

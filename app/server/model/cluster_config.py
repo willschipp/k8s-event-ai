@@ -33,6 +33,7 @@ def save_config(config_string:str,config_name:str):
     config = {
         "clusterId":counter,
         "name":config_name,
+        "status":"loading",
         "config":config_dict
     }
     configs.append(config) # add
@@ -51,14 +52,15 @@ def load_kubeconfig(config_location=None):
     except Exception as e:
         print("error caught and swalled")
     
-#setup
-# def init():
-#     global configs
-#     if len(configs) > 0:
-#         return
-#     dummy = load_kubeconfig()
-#     config = {
-#         "name":"dummy",
-#         "config":dummy
-#     }
-#     configs.append(config)
+def update_cluster_status(clusterId,status):
+    # find the config
+    config = get_config_by_id(clusterId)
+    if config is None:
+        print(f"cluster id {clusterId} doesn't exist")
+        return
+    global configs
+    idx = configs.index(config) # get it before it's changed
+    # update the status field
+    config['status'] = status
+    # save back
+    configs[idx] = config
